@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:30 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/16 11:56:04 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/16 12:23:51 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int ac, char **av)
 	}
 	if (!ft_check_num(av))
 	{
-		printf("Use only numeric characters\n");
+		printf("Invalid argument\n");
 		exit(EXIT_FAILURE);
 	}
 	start_philo(av);

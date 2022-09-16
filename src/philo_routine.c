@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:34:09 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/16 10:50:56 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/16 15:35:49 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,9 @@ void	last(t_phil *philo)
 	pthread_mutex_lock(&philo->data->fork[philo->id].mutex);
 	philo->data->fork[philo->id].use = 1;
 	ft_message(philo, "has taken a fork");
-	if (!philo->data->fork[0].use)
-	{
-		pthread_mutex_lock(&philo->data->fork[0].mutex);
-		ft_message(philo, "has taken a fork");
-		philo->data->fork[0].use = 1;
-	}
+	pthread_mutex_lock(&philo->data->fork[0].mutex);
+	ft_message(philo, "has taken a fork");
+	philo->data->fork[0].use = 1;
 	ft_message_eat(philo, "is eating");
 	ft_sleep(philo, philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->data->fork[philo->id].mutex);
@@ -38,12 +35,9 @@ void	right(t_phil *philo)
 		pthread_mutex_lock(&philo->data->fork[philo->id].mutex);
 		ft_message(philo, "has taken a fork");
 		philo->data->fork[philo->id].use = 1;
-		if (!philo->data->fork[philo->id + RIGHT].use)
-		{
-			pthread_mutex_lock(&philo->data->fork[philo->id + RIGHT].mutex);
-			ft_message(philo, "has taken a fork");
-			philo->data->fork[philo->id + RIGHT].use = 1;
-		}
+		pthread_mutex_lock(&philo->data->fork[philo->id + RIGHT].mutex);
+		ft_message(philo, "has taken a fork");
+		philo->data->fork[philo->id + RIGHT].use = 1;
 		ft_message_eat(philo, "is eating");
 		ft_sleep(philo, philo->data->time_to_eat);
 		pthread_mutex_unlock(&philo->data->fork[philo->id].mutex);
@@ -60,12 +54,9 @@ void	left(t_phil *philo)
 	pthread_mutex_lock(&philo->data->fork[philo->id].mutex);
 	ft_message(philo, "has taken a fork");
 	philo->data->fork[philo->id].use = 1;
-	if (!philo->data->fork[philo->id + LEFT].use)
-	{
-		pthread_mutex_lock(&philo->data->fork[philo->id + LEFT].mutex);
-		ft_message(philo, "has taken a fork");
-		philo->data->fork[philo->id + LEFT].use = 1;
-	}
+	pthread_mutex_lock(&philo->data->fork[philo->id + LEFT].mutex);
+	ft_message(philo, "has taken a fork");
+	philo->data->fork[philo->id + LEFT].use = 1;
 	ft_message_eat(philo, "is eating");
 	ft_sleep(philo, philo->data->time_to_eat);
 	pthread_mutex_unlock(&philo->data->fork[philo->id].mutex);
