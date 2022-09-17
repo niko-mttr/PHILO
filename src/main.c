@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:30 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/17 15:48:09 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:11:30 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	*process_philo(void *data)
 	t_phil	*philo;
 
 	philo = (t_phil *)data;
-	if (philo->id % 2)
-		ft_usleep(100);
+	// if (philo->id % 2)
+	// 	ft_usleep(philo->data->);
 	while (!philo->data->dead_philo && !philo->data->full)
 	{
 		if (!(philo->id % 2) && !philo->data->dead_philo && !philo->data->full)

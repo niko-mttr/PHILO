@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:44:38 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/17 16:57:16 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:01:03 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	destroy_all(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		pthread_join(data->pid[i], NULL);
-		// pthread_detach(data->pid[i]);
+		// pthread_join(data->pid[i], NULL);
+		pthread_detach(data->pid[i]);
 		// pthread_mutex_destroy(&data->fork[i].mutex);
 		i++;
 	}
