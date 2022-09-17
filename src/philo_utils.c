@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 17:15:43 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/16 11:44:38 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/17 15:50:17 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	free_all(t_data *data)
 void	ft_message(t_phil *philo, char *s)
 {
 	pthread_mutex_lock(&philo->data->mutex_message);
-	if (!philo->data->dead_philo)
+	if (!philo->data->dead_philo && !philo->data->full)
 		printf("%ld %d %s\n", ft_time_diff(philo->data->start), philo->id + 1, s);
 	pthread_mutex_unlock(&philo->data->mutex_message);
 }
@@ -58,7 +58,7 @@ void	ft_message(t_phil *philo, char *s)
 void	ft_message_eat(t_phil *philo, char *s)
 {
 	pthread_mutex_lock(&philo->data->mutex_message);
-	if (!philo->data->dead_philo)
+	if (!philo->data->dead_philo && !philo->data->full)
 	{
 		printf("%ld %d %s\n", ft_time_diff(philo->data->start), philo->id + 1, s);
 		philo->last_eat = get_time();

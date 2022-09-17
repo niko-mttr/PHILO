@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 09:59:40 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/16 11:56:04 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:52:23 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_data
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			time_to_die;
+	int				nb_full;
 	int				full;
 }					t_data;
 
@@ -74,7 +75,7 @@ void				ft_message_death(t_phil *philo, char *s);
 long				get_time(void);
 long				ft_time_diff(long clock);
 void				ft_sleep(t_phil *philo, long end);
-void				my_sleep(long end);
+void				ft_usleep(long time);
 long				ft_time_to_think(t_phil *philo);
 
 /* init */

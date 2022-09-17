@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:09:51 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/15 16:24:18 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/17 14:51:22 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	ft_sleep(t_phil *philo, long end)
 	}
 }
 
-void	my_sleep(long end)
+void	ft_usleep(long time)
 {
-	long	wake_up;
+	long	alarm;
 
-	wake_up = end + get_time();
-	while (get_time() < wake_up)
-		usleep(100);
+	alarm = get_time() + time;
+	while (get_time() < alarm)
+		usleep(time);
 }
 
 long	ft_time_to_think(t_phil *philo)
