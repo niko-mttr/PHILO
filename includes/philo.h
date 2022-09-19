@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 09:59:40 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/17 16:52:23 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/19 16:02:59 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_data
 }					t_data;
 
 /* parsing*/
-int					ft_check_num(char **av);
+int					ft_check_num(int ac, char **av);
 
 /* end */
 void				destroy_all(t_data *data);

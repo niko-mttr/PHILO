@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:09:32 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/16 12:23:30 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/19 15:51:03 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int ft_check_max(char *s)
 	return (1);
 }
 
-int	ft_check_num(char **av)
+int	ft_check_num(int ac, char **av)
 {
 	int	arg;
 	int i;
@@ -60,6 +60,8 @@ int	ft_check_num(char **av)
 		if (!ft_check_max(av[arg]))
 			return (0);
 		if (arg == 1 && !ft_atoi(av[arg]))
+			return (0);
+		if (ac == 6 && arg == 5 && !ft_atoi(av[arg]))
 			return (0);
 		arg++;
 	}

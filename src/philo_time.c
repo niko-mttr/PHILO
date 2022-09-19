@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:09:51 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/17 14:51:22 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/19 14:33:16 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,9 @@ long	ft_time_to_think(t_phil *philo)
 	last_eat = philo->last_eat;
 	time_to_think = (philo->data->time_to_die - (time - last_eat)
 			- philo->data->time_to_eat) / 2;
+	if (time_to_think < 0)
+		time_to_think = 0;
+	if (time_to_think > 600)
+		time_to_think = 200;
 	return (time_to_think);
 }
