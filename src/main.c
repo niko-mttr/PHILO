@@ -6,20 +6,32 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:30 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/19 16:50:00 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:20:29 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+int		death(t_phil *philo)
+{
+	pthread_mutex_lock(&philo->data->mutex_death);
+	if (philo->data->dead_philo == 1)
+	{
+		pthread_mutex_unlock(&philo->data->mutex_death);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->data->mutex_death);
+	return (0);
+}
 
 void	*process_philo(void *data)
 {
 	t_phil	*philo;
 
 	philo = (t_phil *)data;
-	if (philo->id % 2)
+	if (!philo->id % 2)
 		ft_usleep(2);
-	while (!philo->data->dead_philo && !philo->data->full)
+	while (!death(philo))
 	{
 		if (!(philo->id % 2) && !philo->data->dead_philo && !philo->data->full)
 			right(philo);
@@ -51,7 +63,8 @@ void	start_philo(char **arg)
 			ft_exit_fail(&data, i + 1);
 		i++;
 	}
-	if (end_checker(&data))
+	// if (!end_checker(&data))
+	if (!scd_end(&data))
 		destroy_all(&data);
 }
 

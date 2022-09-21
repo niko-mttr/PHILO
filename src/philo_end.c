@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:44:38 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/17 18:01:03 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:20:27 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,50 @@ int	ft_full_check(t_data *data)
 	return (all_full);
 }
 
+int	ft_unlock_mutex(t_data *data, int i)
+{
+	pthread_mutex_unlock(&data->mutex_message);
+	pthread_mutex_unlock(&data->philo[i].eater);
+	return (0);
+}
+
+int	scd_end(t_data *data)
+{
+	int i;
+	int full;
+
+	while (1)
+	{
+		i = 0;
+		full = 0;
+		while (i < data->nb_philo)
+		{
+			pthread_mutex_lock(&data->philo[i].eater);
+			pthread_mutex_lock(&data->mutex_message);
+			if (data->philo[i].lim == 0)
+				full++;
+			if (full == data->nb_philo)
+				return (ft_unlock_mutex(data, i));
+			if (data->philo[i].lim != 0 && ft_time_diff(data->philo[i].last_eat) > data->time_to_die)
+				return (ft_unlock_mutex(data, i));
+			// ft_usleep(200);
+			pthread_mutex_unlock(&data->mutex_message);
+			pthread_mutex_unlock(&data->philo[i].eater);
+			i++;
+		}
+	}
+}
+
 int	end_checker(t_data *data)
 {
 	while (1)
 	{
 		if (ft_dead_check(data))
-			return (1);
+			return (0);
 		if (ft_full_check(data))
-			return (1);
+			return (0);
 	}
-	return (0);
+	return (1);
 }
 
 void	destroy_all(t_data *data)

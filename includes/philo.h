@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 09:59:40 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/21 14:10:43 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:07:51 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 typedef struct s_phil
 {
 	int				id;
+	pthread_mutex_t	eater;
 	int				left_fork;
 	int				right_fork;
 	int				nb_eat;
@@ -48,6 +49,8 @@ typedef struct s_data
 	struct s_fork	*fork;
 	pthread_t		*pid;
 	pthread_mutex_t	mutex_message;
+	pthread_mutex_t	mutex_death;
+	pthread_mutex_t mutex_time;
 	int				nb_philo;
 	int				dead_philo;
 	long			start;
@@ -62,6 +65,8 @@ typedef struct s_data
 int					ft_check_num(int ac, char **av);
 
 /* end */
+int					scd_end(t_data *data);
+
 void				destroy_all(t_data *data);
 int					end_checker(t_data *data);
 void				ft_exit_fail(t_data *data, int max);

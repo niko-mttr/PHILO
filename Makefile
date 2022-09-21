@@ -6,7 +6,7 @@
 #    By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/02 09:45:23 by nmattera          #+#    #+#              #
-#    Updated: 2022/09/21 13:02:28 by nmattera         ###   ########.fr        #
+#    Updated: 2022/09/21 17:48:18 by nmattera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC 	=	src/main.c\
 OBJS 	=	${SRC:.c=.o}
 
 CC 		=	gcc
-CFLAGS 	=	-Wall -Wextra -Werror -pthread 
+CFLAGS 	=	-Wall -Wextra -Werror -pthread -fsanitize=thread -g
 
 INCLUDES =	-I includes
 
