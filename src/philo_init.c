@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 12:20:42 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/21 19:08:59 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:28:16 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	ft_init_data(t_data *data, char **arg)
 {
 	pthread_mutex_init(&data->mutex_message, NULL);
 	pthread_mutex_init(&data->mutex_death, NULL);
-	pthread_mutex_init(&data->mutex_time, NULL);
 	data->nb_philo = ft_atoi(arg[1]);
 	data->time_to_die = ft_atoi(arg[2]);
 	data->time_to_eat = ft_atoi(arg[3]);
