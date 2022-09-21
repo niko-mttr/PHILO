@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 09:59:40 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/19 16:02:59 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:10:43 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 typedef struct s_phil
 {
 	int				id;
+	int				left_fork;
+	int				right_fork;
 	int				nb_eat;
 	long			last_eat;
 	int				lim;

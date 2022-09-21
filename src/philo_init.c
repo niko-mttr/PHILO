@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 12:20:42 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/17 18:04:29 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:14:34 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ void	ft_init_philo(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		data->philo[i].id = i;
+		data->philo[i].id = i + 1;
+		data->philo[i].left_fork = i;
+		data->philo[i].right_fork = (i + 1) % data->nb_philo;
 		data->philo[i].nb_eat = 0;
 		data->philo[i].last_eat = get_time();
 		data->philo[i].lim = data->nb_full;

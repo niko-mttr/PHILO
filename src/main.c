@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:30 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/19 15:31:09 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/19 16:50:00 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	*process_philo(void *data)
 		if (!philo->data->dead_philo && !philo->data->full)
 			ft_message(philo, "is thinking");
 		ft_sleep(philo, ft_time_to_think(philo));
+		if (philo->lim == 0)
+			break;
 	}
 	return (NULL);
 }
