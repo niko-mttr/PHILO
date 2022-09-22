@@ -6,7 +6,7 @@
 #    By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/02 09:45:23 by nmattera          #+#    #+#              #
-#    Updated: 2022/09/21 19:28:12 by nmattera         ###   ########.fr        #
+#    Updated: 2022/09/22 14:30:31 by nmattera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ SRC 	=	src/main.c\
 			src/philo_parsing.c\
 			src/philo_end.c\
 			src/philo_utils.c\
-			src/philo_routine.c\
 			src/philo_time.c\
 			src/philo_init.c
 

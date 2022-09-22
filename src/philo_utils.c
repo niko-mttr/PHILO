@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 17:15:43 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/21 15:47:18 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/22 16:22:08 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,40 +37,25 @@ int	ft_atoi(char *s)
 	return (n * minus);
 }
 
-void	free_all(t_data *data)
-{
-	if (data->philo)
-		free(data->philo);
-	if (data->pid)
-		free(data->pid);
-	if (data->fork)
-		free(data->fork);
-}
-
 void	ft_message(t_phil *philo, char *s)
 {
 	pthread_mutex_lock(&philo->data->mutex_message);
-	if (!philo->data->dead_philo && !philo->data->full)
+	if (!death(philo->data))
 		printf("%ld %d %s\n", ft_time_diff(philo->data->start), philo->id, s);
+	else
+		printf("je n'imprime pas le message");
 	pthread_mutex_unlock(&philo->data->mutex_message);
 }
 
-void	ft_message_eat(t_phil *philo, char *s)
-{
-	pthread_mutex_lock(&philo->data->mutex_message);
-	if (!philo->data->dead_philo && !philo->data->full)
-	{
-		printf("%ld %d %s\n", ft_time_diff(philo->data->start), philo->id, s);
-		philo->last_eat = get_time();
-		if (philo->lim > 0)
-			philo->lim--;
-	}
-	pthread_mutex_unlock(&philo->data->mutex_message);
-}
 
-void	ft_message_death(t_phil *philo, char *s)
+int	ft_message_death(t_phil *philo, char *s)
 {
+	pthread_mutex_unlock(&philo->eater);
+	pthread_mutex_lock(&philo->data->mutex_death);
+	philo->data->dead_philo = 1;
+	pthread_mutex_unlock(&philo->data->mutex_death);
 	pthread_mutex_lock(&philo->data->mutex_message);
 	printf("%ld %d %s\n", ft_time_diff(philo->data->start), philo->id, s);
 	pthread_mutex_unlock(&philo->data->mutex_message);
+	return (0);
 }

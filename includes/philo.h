@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 09:59:40 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/21 19:28:11 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:15:40 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,21 @@
 
 typedef struct s_phil
 {
-	int				id;
 	pthread_mutex_t	eater;
+	int				id;
+	int				all_philo;
 	int				left_fork;
 	int				right_fork;
-	int				nb_eat;
 	long			last_eat;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			time_to_die;
 	int				lim;
-	int				is_dead;
 	struct s_data	*data;
 }					t_phil;
 
 typedef struct s_fork
 {
-	pthread_mutex_t	mutex;
 	int				use;
 }					t_fork;
 
@@ -50,13 +51,14 @@ typedef struct s_data
 	pthread_t		*pid;
 	pthread_mutex_t	mutex_message;
 	pthread_mutex_t	mutex_death;
-	pthread_mutex_t mutex_time;
-	int				nb_philo;
-	int				dead_philo;
-	long			start;
+	pthread_mutex_t	*mutex_fork;
+	// pthread_mutex_t	mutex_time;
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			time_to_die;
+	int				nb_philo;
+	int				dead_philo;
+	long			start;
 	int				nb_full;
 	int				full;
 }					t_data;
@@ -65,6 +67,7 @@ typedef struct s_data
 int					ft_check_num(int ac, char **av);
 
 /* end */
+int					death(t_data *data);
 int					scd_end(t_data *data);
 
 void				destroy_all(t_data *data);
@@ -75,13 +78,12 @@ void				ft_exit_fail(t_data *data, int max);
 int					ft_atoi(char *s);
 void				free_all(t_data *data);
 void				ft_message(t_phil *philo, char *s);
-void				ft_message_eat(t_phil *philo, char *s);
-void				ft_message_death(t_phil *philo, char *s);
+int					ft_message_death(t_phil *philo, char *s);
 
 /* time */
 long				get_time(void);
 long				ft_time_diff(long clock);
-void				ft_sleep(t_phil *philo, long end);
+void				ft_sleep_check(t_phil *philo, long end);
 void				ft_usleep(long time);
 long				ft_time_to_think(t_phil *philo);
 
