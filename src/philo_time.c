@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:09:51 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/22 14:40:49 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:54:34 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_sleep_check(t_phil *philo, long end)
 	wake_up = end + get_time();
 	while (get_time() < wake_up)
 	{
-		if (!death(philo->data))
+		if (!stop(philo->data))
 			break ;
 		usleep(100);
 	}
@@ -61,9 +61,9 @@ long	ft_time_to_think(t_phil *philo)
 	time = get_time();
 	pthread_mutex_lock(&philo->eater);
 	last_eat = philo->last_eat;
-	pthread_mutex_unlock(&philo->eater);
 	time_to_think = (philo->time_to_die - (time - last_eat)
 			- philo->time_to_eat) / 2;
+	pthread_mutex_unlock(&philo->eater);
 	if (time_to_think < 0)
 		time_to_think = 0;
 	if (time_to_think > 600)

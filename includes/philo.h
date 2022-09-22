@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 09:59:40 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/22 17:15:40 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:37:41 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <sys/time.h>
+# include <unistd.h>
 # include <unistd.h>
 
 # define RIGHT 1
@@ -50,15 +51,16 @@ typedef struct s_data
 	struct s_fork	*fork;
 	pthread_t		*pid;
 	pthread_mutex_t	mutex_message;
+	pthread_mutex_t	mutex_stop;
 	pthread_mutex_t	mutex_death;
 	pthread_mutex_t	*mutex_fork;
-	// pthread_mutex_t	mutex_time;
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			time_to_die;
 	int				nb_philo;
 	int				dead_philo;
 	long			start;
+	int				stop;
 	int				nb_full;
 	int				full;
 }					t_data;
@@ -67,6 +69,7 @@ typedef struct s_data
 int					ft_check_num(int ac, char **av);
 
 /* end */
+int					stop(t_data *data);
 int					death(t_data *data);
 int					scd_end(t_data *data);
 

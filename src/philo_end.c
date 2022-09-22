@@ -6,21 +6,29 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:44:38 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/22 17:16:47 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:29:30 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int		death(t_data *data)
+int		stop(t_data *data)
 {
-	pthread_mutex_lock(&data->mutex_death);
-	if (data->dead_philo == 1)
+	pthread_mutex_lock(&data->mutex_stop);
+	if (data->stop == 1)
 	{
-		pthread_mutex_unlock(&data->mutex_death);
+		pthread_mutex_unlock(&data->mutex_stop);
 		return (1);
 	}
-	pthread_mutex_unlock(&data->mutex_death);
+	pthread_mutex_unlock(&data->mutex_stop);
+	return (0);
+}
+
+int	ft_full(t_data *data)
+{
+	pthread_mutex_lock(&data->mutex_stop);
+	data->stop= 1;
+	pthread_mutex_unlock(&data->mutex_stop);
 	return (0);
 }
 
@@ -39,7 +47,7 @@ int	scd_end(t_data *data)
 			if (data->philo[i].lim == 0)
 				full++;
 			if (full == data->nb_philo)
-				return (0);
+				return (ft_full(data));
 			if (data->philo[i].lim != 0 && ft_time_diff(data->philo[i].last_eat) > data->time_to_die)
 				return (ft_message_death(&data->philo[i], "is dead"));
 			pthread_mutex_unlock(&data->philo[i].eater);
@@ -50,16 +58,6 @@ int	scd_end(t_data *data)
 	return (1);
 }
 
-void	free_all(t_data *data)
-{
-	if (data->philo)
-		free(data->philo);
-	if (data->pid)
-		free(data->pid);
-	if (data->fork)
-		free(data->fork);
-}
-
 void	destroy_all(t_data *data)
 {
 	int	i;
@@ -67,14 +65,23 @@ void	destroy_all(t_data *data)
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		// pthread_mutex_destroy(&data->philo[i].eater);
-		// pthread_mutex_destroy(&data->mutex_fork[i]);
 		pthread_join(data->pid[i], NULL);
+		i++;
+	}
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_destroy(&data->mutex_fork[i]);
+		pthread_mutex_destroy(&data->philo[i].eater);
 		i++;
 	}
 	// pthread_mutex_destroy(&data->mutex_message);
 	// pthread_mutex_destroy(&data->mutex_death);
-	free_all(data);
+	if (data->philo)
+		free(data->philo);
+	if (data->pid)
+		free(data->pid);
+	if (data->mutex_fork)
+		free(data->fork);
 }
 
 void	ft_exit_fail(t_data *data, int max)
@@ -93,7 +100,7 @@ void	ft_exit_fail(t_data *data, int max)
 		// pthread_mutex_destroy(&data->fork[i].mutex);
 		i++;
 	}
-	free_all(data);
+	// free_all(data);
 	// pthread_mutex_destroy(&data->mutex_message);
 	exit(EXIT_FAILURE);
 }

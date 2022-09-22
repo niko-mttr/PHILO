@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:30 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/22 17:17:57 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:46:18 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void	*process_philo(void *data)
 	philo = (t_phil *)data;
 	if (!philo->id % 2)
 		ft_usleep(2);
-	while (!death(philo->data))
+	while (!stop(philo->data))
 	{
+		printf("dans la bourrasque\n");
 		if (!(philo->id % 2) && philo->id != philo->all_philo)
 			right(philo);
 		else
@@ -62,9 +63,9 @@ void	*process_philo(void *data)
 		ft_message(philo, "is sleeping");
 		ft_usleep(philo->time_to_sleep);
 		ft_message(philo, "is thinking");
-		ft_usleep(ft_time_to_think(philo));
-		if (philo->lim == 0)
-			break;
+		// ft_usleep(ft_time_to_think(philo));
+		// if (philo->lim == 0)
+			// break;
 	}
 	return (NULL);
 }

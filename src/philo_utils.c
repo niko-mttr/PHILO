@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 17:15:43 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/22 16:22:08 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:46:34 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,17 @@ int	ft_atoi(char *s)
 void	ft_message(t_phil *philo, char *s)
 {
 	pthread_mutex_lock(&philo->data->mutex_message);
-	if (!death(philo->data))
+	if (!stop(philo->data))
 		printf("%ld %d %s\n", ft_time_diff(philo->data->start), philo->id, s);
-	else
-		printf("je n'imprime pas le message");
 	pthread_mutex_unlock(&philo->data->mutex_message);
 }
 
 
 int	ft_message_death(t_phil *philo, char *s)
 {
+	pthread_mutex_lock(&philo->data->mutex_stop);
+	philo->data->stop= 1;
+	pthread_mutex_unlock(&philo->data->mutex_stop);
 	pthread_mutex_unlock(&philo->eater);
 	pthread_mutex_lock(&philo->data->mutex_death);
 	philo->data->dead_philo = 1;
