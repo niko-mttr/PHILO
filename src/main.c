@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:30 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/22 18:46:18 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/24 18:28:51 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	left(t_phil *philo)
 	pthread_mutex_lock(&philo->data->mutex_fork[philo->right_fork]);
 	ft_message(philo, "has taken a fork");
 	ft_message(philo, "is eating");
-	pthread_mutex_lock(&philo->eater);
+	pthread_mutex_lock(&philo->checker);
 	philo->last_eat = get_time();
 		if (philo->lim > 0)
 			philo->lim--;
-	pthread_mutex_unlock(&philo->eater);
-	ft_usleep(philo->time_to_eat);
+	pthread_mutex_unlock(&philo->checker);
+	ft_sleep_check(philo, philo->time_to_eat);
 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->right_fork]);
 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->left_fork]);
 }
@@ -36,12 +36,13 @@ void	right(t_phil *philo)
 	pthread_mutex_lock(&philo->data->mutex_fork[philo->left_fork]);
 	ft_message(philo, "has taken a fork");
 	ft_message(philo, "is eating");
-	pthread_mutex_lock(&philo->eater);
+	pthread_mutex_lock(&philo->checker);
 	philo->last_eat = get_time();
 	if (philo->lim > 0)
 		philo->lim--;
-	pthread_mutex_unlock(&philo->eater);
-	ft_usleep(philo->time_to_eat);
+	pthread_mutex_unlock(&philo->checker);
+	// ft_usleep(philo->time_to_eat);
+	ft_sleep_check(philo, philo->time_to_eat);
 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->left_fork]);
 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->right_fork]);
 }
@@ -53,9 +54,8 @@ void	*process_philo(void *data)
 	philo = (t_phil *)data;
 	if (!philo->id % 2)
 		ft_usleep(2);
-	while (!stop(philo->data))
+	while (!stop_action(philo->data))
 	{
-		printf("dans la bourrasque\n");
 		if (!(philo->id % 2) && philo->id != philo->all_philo)
 			right(philo);
 		else

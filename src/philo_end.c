@@ -6,53 +6,80 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:44:38 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/22 18:29:30 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/24 18:52:56 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int		stop(t_data *data)
+int		stop_action(t_data *data)
 {
+	int i;
+
+	i = 0;
 	pthread_mutex_lock(&data->mutex_stop);
 	if (data->stop == 1)
-	{
-		pthread_mutex_unlock(&data->mutex_stop);
-		return (1);
-	}
+		i = 1;
 	pthread_mutex_unlock(&data->mutex_stop);
-	return (0);
+	return (i);
 }
 
-int	ft_full(t_data *data)
+int	stop_time(t_phil *philo)
 {
+	int i;
+
+	i = 0;
+	pthread_mutex_lock(&philo->mutex_time);
+	if (philo->stop_time == 1)
+		i = 1;
+	pthread_mutex_unlock(&philo->mutex_time);
+	return (i);
+}
+
+void	ft_stop_signal(t_data *data, int *stop)
+{
+	int i;
+
+	*stop = 1;
 	pthread_mutex_lock(&data->mutex_stop);
 	data->stop= 1;
 	pthread_mutex_unlock(&data->mutex_stop);
-	return (0);
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_lock(&data->philo[i].mutex_time);
+		data->philo[i].stop_time = 1;
+		pthread_mutex_unlock(&data->philo[i].mutex_time);
+		i++;
+	}
 }
 
 int	scd_end(t_data *data)
 {
 	int i;
 	int full;
+	int stop;
 
+	stop = 0;
 	while (1)
 	{
-		i = 0;
+		i = -1;
 		full = 0;
-		while (i < data->nb_philo)
+		while (++i < data->nb_philo)
 		{
-			pthread_mutex_lock(&data->philo[i].eater);
+			pthread_mutex_lock(&data->philo[i].checker);
 			if (data->philo[i].lim == 0)
 				full++;
 			if (full == data->nb_philo)
-				return (ft_full(data));
+				ft_stop_signal(data, &stop);
 			if (data->philo[i].lim != 0 && ft_time_diff(data->philo[i].last_eat) > data->time_to_die)
-				return (ft_message_death(&data->philo[i], "is dead"));
-			pthread_mutex_unlock(&data->philo[i].eater);
-			// ft_usleep(100);
-			i++;
+				ft_message_death(&data->philo[i], "is dead", &stop);
+			pthread_mutex_unlock(&data->philo[i].checker);
+		}
+		if (stop)
+		{
+			printf("je passe dans ma fin \n\n\n\n\n\n\n");
+			break ;
 		}
 	}
 	return (1);
@@ -71,11 +98,12 @@ void	destroy_all(t_data *data)
 	while (i < data->nb_philo)
 	{
 		pthread_mutex_destroy(&data->mutex_fork[i]);
-		pthread_mutex_destroy(&data->philo[i].eater);
+		pthread_mutex_destroy(&data->philo[i].checker);
 		i++;
 	}
-	// pthread_mutex_destroy(&data->mutex_message);
-	// pthread_mutex_destroy(&data->mutex_death);
+	pthread_mutex_destroy(&data->mutex_message);
+	pthread_mutex_destroy(&data->mutex_death);
+	pthread_mutex_destroy(&data->mutex_stop);
 	if (data->philo)
 		free(data->philo);
 	if (data->pid)

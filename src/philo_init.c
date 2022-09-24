@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 12:20:42 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/22 17:46:54 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/24 18:28:47 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_init_philo(t_data *data)
 	{
 		data->philo[i].id = i + 1;
 		data->philo[i].all_philo = data->nb_philo; 
+		data->philo[i].stop_time = 0;
 		data->philo[i].left_fork = i;
 		data->philo[i].right_fork = (i + 1) % data->nb_philo;
 		data->philo[i].last_eat = get_time();
@@ -41,7 +42,8 @@ void	ft_init_philo(t_data *data)
 		data->philo[i].time_to_eat = data->time_to_eat;
 		data->philo[i].time_to_die = data->time_to_die;
 		data->philo[i].time_to_sleep = data->time_to_sleep;
-		pthread_mutex_init(&data->philo[i].eater, NULL);
+		pthread_mutex_init(&data->philo[i].mutex_time, NULL);
+		pthread_mutex_init(&data->philo[i].checker, NULL);
 		pthread_mutex_init(&data->mutex_fork[i], NULL);
 		i++;
 	}
@@ -52,7 +54,6 @@ void	ft_init_data(t_data *data, char **arg)
 	pthread_mutex_init(&data->mutex_message, NULL);
 	pthread_mutex_init(&data->mutex_death, NULL);
 	pthread_mutex_init(&data->mutex_stop, NULL);
-	// pthread_mutex_init(&data->mutex_time, NULL);
 	data->nb_philo = ft_atoi(arg[1]);
 	data->time_to_die = ft_atoi(arg[2]);
 	data->time_to_eat = ft_atoi(arg[3]);
@@ -68,5 +69,4 @@ void	ft_init_data(t_data *data, char **arg)
 	// if (!data->philo || !data->fork || !data->pid)
 		// free_all(data);
 	ft_init_philo(data);
-	// ft_init_fork(data);
 }

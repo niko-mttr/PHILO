@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 09:59:40 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/22 18:37:41 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/24 18:51:15 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
-# include <unistd.h>
 
 # define RIGHT 1
 # define LEFT -1
 
 typedef struct s_phil
 {
-	pthread_mutex_t	eater;
+	pthread_mutex_t	checker;
+	pthread_mutex_t	mutex_time;
 	int				id;
+	int				stop_time;
 	int				all_philo;
 	int				left_fork;
 	int				right_fork;
@@ -61,6 +62,7 @@ typedef struct s_data
 	int				dead_philo;
 	long			start;
 	int				stop;
+	int				time_stop;
 	int				nb_full;
 	int				full;
 }					t_data;
@@ -69,7 +71,9 @@ typedef struct s_data
 int					ft_check_num(int ac, char **av);
 
 /* end */
-int					stop(t_data *data);
+void				ft_stop_signal(t_data *data, int *stop);
+int					stop_time(t_phil *philo);
+int					stop_action(t_data *data);
 int					death(t_data *data);
 int					scd_end(t_data *data);
 
@@ -81,7 +85,7 @@ void				ft_exit_fail(t_data *data, int max);
 int					ft_atoi(char *s);
 void				free_all(t_data *data);
 void				ft_message(t_phil *philo, char *s);
-int					ft_message_death(t_phil *philo, char *s);
+void				ft_message_death(t_phil *philo, char *s, int *stop);
 
 /* time */
 long				get_time(void);
