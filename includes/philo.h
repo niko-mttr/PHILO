@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 09:59:40 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/24 18:51:15 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 13:06:55 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,14 @@ int					ft_check_num(int ac, char **av);
 void				ft_stop_signal(t_data *data, int *stop);
 int					stop_time(t_phil *philo);
 int					stop_action(t_data *data);
-int					death(t_data *data);
 int					scd_end(t_data *data);
-
-void				destroy_all(t_data *data);
-int					end_checker(t_data *data);
-void				ft_exit_fail(t_data *data, int max);
 
 /* utils */
 int					ft_atoi(char *s);
-void				free_all(t_data *data);
 void				ft_message(t_phil *philo, char *s);
 void				ft_message_death(t_phil *philo, char *s, int *stop);
+void				ft_free_all(t_data *data);
+void				destroy_all(t_data *data);
 
 /* time */
 long				get_time(void);

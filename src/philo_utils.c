@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 17:15:43 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 11:52:01 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 13:15:46 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,37 @@ void	ft_message_death(t_phil *philo, char *s, int *stop)
 		printf("%ld %d %s\n", ft_time_diff(philo->data->start), philo->id, s);
 	pthread_mutex_unlock(&philo->data->mutex_message);
 	ft_stop_signal(philo->data, stop);
+}
+
+void	ft_free_all(t_data *data)
+{
+	if (data->philo)
+		free(data->philo);
+	if (data->pid)
+		free(data->pid);
+	if (data->mutex_fork)
+		free(data->fork);
+}
+
+void	destroy_all(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_join(data->pid[i], NULL);
+		i++;
+	}
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_destroy(&data->mutex_fork[i]);
+		pthread_mutex_destroy(&data->philo[i].checker);
+		i++;
+	}
+	pthread_mutex_destroy(&data->mutex_message);
+	pthread_mutex_destroy(&data->mutex_death);
+	pthread_mutex_destroy(&data->mutex_stop);
+	ft_free_all(data);
 }

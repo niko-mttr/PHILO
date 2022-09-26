@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:30 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 12:48:42 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 15:09:45 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	*process_philo(void *data)
 
 	philo = (t_phil *)data;
 	if (!philo->id % 2)
-		ft_usleep(2);
+		ft_sleep_check(philo, ft_time_to_think(philo));
 	while (!stop_action(philo->data))
 	{
 		if (!(philo->id % 2) && philo->id + 1 != philo->all_philo)
@@ -60,9 +60,9 @@ void	*process_philo(void *data)
 		else
 			left(philo);
 		ft_message(philo, "is sleeping");
-		ft_usleep(philo->time_to_sleep);
+		ft_sleep_check(philo, philo->time_to_sleep);
 		ft_message(philo, "is thinking");
-		ft_usleep(ft_time_to_think(philo));
+		ft_sleep_check(philo, ft_time_to_think(philo));
 	}
 	return (NULL);
 }
@@ -78,7 +78,10 @@ int	start_philo(char **arg)
 	while (i < data.nb_philo)
 	{
 		if (pthread_create(&data.pid[i], NULL, &process_philo, &data.philo[i]))
-			ft_exit_fail(&data, i + 1);
+		{
+			ft_free_all(&data);
+			return (EXIT_FAILURE);
+		}
 		i++;
 	}
 	if (!scd_end(&data))

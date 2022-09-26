@@ -6,21 +6,23 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 12:20:42 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/24 18:28:47 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:16:18 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_init_fork(t_data *data)
+void	ft_init_fork(t_phil *philo)
 {
-	int	i;
-
-	i = 0;
-	while (i < data->nb_philo)
+	philo->left_fork = philo->id - 1;
+	philo->right_fork = philo->id % philo->all_philo;
+	if ((philo->all_philo == 3))
 	{
-		data->fork[i].use = 0;
-		i++;
+		if (!(philo->id % 2))
+		{
+			philo->left_fork = philo->id % philo->all_philo;
+			philo->right_fork = philo->id - 1;
+		}
 	}
 }
 
@@ -34,8 +36,6 @@ void	ft_init_philo(t_data *data)
 		data->philo[i].id = i + 1;
 		data->philo[i].all_philo = data->nb_philo; 
 		data->philo[i].stop_time = 0;
-		data->philo[i].left_fork = i;
-		data->philo[i].right_fork = (i + 1) % data->nb_philo;
 		data->philo[i].last_eat = get_time();
 		data->philo[i].lim = data->nb_full;
 		data->philo[i].data = data;
@@ -45,6 +45,10 @@ void	ft_init_philo(t_data *data)
 		pthread_mutex_init(&data->philo[i].mutex_time, NULL);
 		pthread_mutex_init(&data->philo[i].checker, NULL);
 		pthread_mutex_init(&data->mutex_fork[i], NULL);
+		/* fork */
+		// data->philo[i].left_fork = i;
+		// data->philo[i].right_fork = (i + 1) % data->nb_philo;
+		ft_init_fork(&data->philo[i]);
 		i++;
 	}
 }

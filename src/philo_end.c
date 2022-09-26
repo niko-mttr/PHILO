@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:44:38 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 12:49:21 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 13:06:46 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,52 +80,4 @@ int	scd_end(t_data *data)
 			break ;
 	}
 	return (0);
-}
-
-void	destroy_all(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		pthread_join(data->pid[i], NULL);
-		i++;
-	}
-	while (i < data->nb_philo)
-	{
-		pthread_mutex_destroy(&data->mutex_fork[i]);
-		pthread_mutex_destroy(&data->philo[i].checker);
-		i++;
-	}
-	pthread_mutex_destroy(&data->mutex_message);
-	pthread_mutex_destroy(&data->mutex_death);
-	pthread_mutex_destroy(&data->mutex_stop);
-	if (data->philo)
-		free(data->philo);
-	if (data->pid)
-		free(data->pid);
-	if (data->mutex_fork)
-		free(data->fork);
-}
-
-void	ft_exit_fail(t_data *data, int max)
-{
-	int	i;
-
-	i = 0;
-	while (i < max)
-	{
-		pthread_join(data->pid[i], NULL);
-		i++;
-	}
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		// pthread_mutex_destroy(&data->fork[i].mutex);
-		i++;
-	}
-	// free_all(data);
-	// pthread_mutex_destroy(&data->mutex_message);
-	exit(EXIT_FAILURE);
 }
