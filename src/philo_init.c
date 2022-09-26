@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 12:20:42 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 17:48:15 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 19:23:26 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ void	ft_init_data(t_data *data, char **arg)
 	if (arg[5])
 		data->nb_full = ft_atoi(arg[5]);
 	data->philo = (t_phil *)malloc(sizeof(t_phil) * data->nb_philo);
-	data->mutex_fork = (pthread_mutex_t *)malloc(sizeof(t_fork)
+	data->mutex_fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
 			* data->nb_philo);
 	data->pid = (pthread_t *)malloc(sizeof(pthread_t) * data->nb_philo);
-	if (!data->philo || !data->fork || !data->pid)
+	if (!data->philo || !data->mutex_fork || !data->pid)
 		ft_free_all(data);
 	ft_init_philo(data);
 }
