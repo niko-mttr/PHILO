@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:44:38 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 16:54:13 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:18:04 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,18 @@ int	scd_end(t_data *data)
 			break ;
 	}
 	return (0);
+}
+
+void	destroy_all(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_join(data->pid[i], NULL);
+		i++;
+	}
+	ft_destroy_mutex(data);
+	ft_free_all(data);
 }

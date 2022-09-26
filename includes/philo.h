@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 09:59:40 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 16:48:12 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:09:01 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,14 @@ typedef struct s_data
 	pthread_t		*pid;
 	pthread_mutex_t	mutex_message;
 	pthread_mutex_t	mutex_stop;
-	pthread_mutex_t	mutex_death;
 	pthread_mutex_t	*mutex_fork;
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			time_to_die;
 	int				nb_philo;
-	int				dead_philo;
 	long			start;
 	int				stop;
-	int				time_stop;
 	int				nb_full;
-	int				full;
 }					t_data;
 
 /* parsing*/
@@ -75,13 +71,14 @@ void				ft_stop_signal(t_data *data, int *stop);
 int					stop_time(t_phil *philo);
 int					stop_action(t_data *data);
 int					scd_end(t_data *data);
+void				destroy_all(t_data *data);
 
 /* utils */
 int					ft_atoi(char *s);
 void				ft_message(t_phil *philo, char *s);
 void				ft_message_death(t_phil *philo, char *s, int *stop);
 void				ft_free_all(t_data *data);
-void				destroy_all(t_data *data);
+void				ft_destroy_mutex(t_data *data);
 
 /* time */
 long				get_time(void);

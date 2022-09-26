@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 17:15:43 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 16:54:02 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:21:09 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,28 +61,21 @@ void	ft_free_all(t_data *data)
 	if (data->pid)
 		free(data->pid);
 	if (data->mutex_fork)
-		free(data->fork);
+		free(data->mutex_fork);
 }
 
-void	destroy_all(t_data *data)
+void	ft_destroy_mutex(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		pthread_join(data->pid[i], NULL);
-		i++;
-	}
-	i = 0;
-	while (i < data->nb_philo)
-	{
 		pthread_mutex_destroy(&data->mutex_fork[i]);
 		pthread_mutex_destroy(&data->philo[i].checker);
+		pthread_mutex_destroy(&data->philo[i].mutex_time);
 		i++;
 	}
 	pthread_mutex_destroy(&data->mutex_message);
-	pthread_mutex_destroy(&data->mutex_death);
 	pthread_mutex_destroy(&data->mutex_stop);
-	ft_free_all(data);
 }

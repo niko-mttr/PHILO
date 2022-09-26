@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:30 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 16:53:17 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:09:33 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	start_philo(char **arg)
 	{
 		if (pthread_create(&data.pid[i], NULL, &process_philo, &data.philo[i]))
 		{
+			ft_destroy_mutex(&data);
 			ft_free_all(&data);
 			return (EXIT_FAILURE);
 		}
