@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:30 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/24 18:28:51 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 12:48:42 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	right(t_phil *philo)
 	if (philo->lim > 0)
 		philo->lim--;
 	pthread_mutex_unlock(&philo->checker);
-	// ft_usleep(philo->time_to_eat);
 	ft_sleep_check(philo, philo->time_to_eat);
 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->left_fork]);
 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->right_fork]);
@@ -56,16 +55,14 @@ void	*process_philo(void *data)
 		ft_usleep(2);
 	while (!stop_action(philo->data))
 	{
-		if (!(philo->id % 2) && philo->id != philo->all_philo)
+		if (!(philo->id % 2) && philo->id + 1 != philo->all_philo)
 			right(philo);
 		else
 			left(philo);
 		ft_message(philo, "is sleeping");
 		ft_usleep(philo->time_to_sleep);
 		ft_message(philo, "is thinking");
-		// ft_usleep(ft_time_to_think(philo));
-		// if (philo->lim == 0)
-			// break;
+		ft_usleep(ft_time_to_think(philo));
 	}
 	return (NULL);
 }

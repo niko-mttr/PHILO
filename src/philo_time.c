@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 17:09:51 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/24 18:32:51 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 11:13:42 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_sleep_check(t_phil *philo, long end)
 	wake_up = end + get_time();
 	while (get_time() < wake_up)
 	{
-		if (!stop_time(philo))
+		if (stop_time(philo))
 			break ;
 		usleep(100);
 	}

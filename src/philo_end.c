@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:44:38 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/24 18:52:56 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 12:49:21 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,10 @@ int	scd_end(t_data *data)
 				ft_message_death(&data->philo[i], "is dead", &stop);
 			pthread_mutex_unlock(&data->philo[i].checker);
 		}
-		if (stop)
-		{
-			printf("je passe dans ma fin \n\n\n\n\n\n\n");
+		if (stop_action(data))
 			break ;
-		}
 	}
-	return (1);
+	return (0);
 }
 
 void	destroy_all(t_data *data)

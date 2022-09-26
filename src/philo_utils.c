@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 17:15:43 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/24 18:52:03 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 11:52:01 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	ft_message(t_phil *philo, char *s)
 
 void	ft_message_death(t_phil *philo, char *s, int *stop)
 {
-	*stop = 1;
-	ft_stop_signal(philo->data, stop);
 	pthread_mutex_lock(&philo->data->mutex_message);
-	printf("%ld %d %s\n", ft_time_diff(philo->data->start), philo->id, s);
+	if (!stop_action(philo->data))
+		printf("%ld %d %s\n", ft_time_diff(philo->data->start), philo->id, s);
 	pthread_mutex_unlock(&philo->data->mutex_message);
+	ft_stop_signal(philo->data, stop);
 }
