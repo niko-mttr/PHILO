@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:09:32 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 12:41:38 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:53:06 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	is_space(char c)
 	return (0);
 }
 
-int ft_check_max(char *s)
+int	ft_check_max(char *s)
 {
-	int i;
-	long max;
+	int		i;
+	long	max;
 
 	i = 0;
-	while(s[i])
+	while (s[i])
 		i++;
 	if (i > 10)
 		return (0);
@@ -45,7 +45,7 @@ int ft_check_max(char *s)
 int	ft_check_num(int ac, char **av)
 {
 	int	arg;
-	int i;
+	int	i;
 
 	arg = 1;
 	while (av[arg])

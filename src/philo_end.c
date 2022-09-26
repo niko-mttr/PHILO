@@ -6,15 +6,15 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 15:44:38 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 13:06:46 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:54:13 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int		stop_action(t_data *data)
+int	stop_action(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	pthread_mutex_lock(&data->mutex_stop);
@@ -26,7 +26,7 @@ int		stop_action(t_data *data)
 
 int	stop_time(t_phil *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	pthread_mutex_lock(&philo->mutex_time);
@@ -38,11 +38,11 @@ int	stop_time(t_phil *philo)
 
 void	ft_stop_signal(t_data *data, int *stop)
 {
-	int i;
+	int	i;
 
 	*stop = 1;
 	pthread_mutex_lock(&data->mutex_stop);
-	data->stop= 1;
+	data->stop = 1;
 	pthread_mutex_unlock(&data->mutex_stop);
 	i = 0;
 	while (i < data->nb_philo)
@@ -56,9 +56,9 @@ void	ft_stop_signal(t_data *data, int *stop)
 
 int	scd_end(t_data *data)
 {
-	int i;
-	int full;
-	int stop;
+	int	i;
+	int	full;
+	int	stop;
 
 	stop = 0;
 	while (1)
@@ -72,7 +72,8 @@ int	scd_end(t_data *data)
 				full++;
 			if (full == data->nb_philo)
 				ft_stop_signal(data, &stop);
-			if (data->philo[i].lim != 0 && ft_time_diff(data->philo[i].last_eat) > data->time_to_die)
+			if (data->philo[i].lim != 0
+				&& ft_time_diff(data->philo[i].last_eat) > data->time_to_die)
 				ft_message_death(&data->philo[i], "is dead", &stop);
 			pthread_mutex_unlock(&data->philo[i].checker);
 		}

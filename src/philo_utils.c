@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 17:15:43 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 13:15:46 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:54:02 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	ft_atoi(char *s)
 {
 	long	n;
-	int	minus;
-	int	i;
+	int		minus;
+	int		i;
 
 	minus = 1;
 	n = 0;
@@ -44,7 +44,6 @@ void	ft_message(t_phil *philo, char *s)
 		printf("%ld %d %s\n", ft_time_diff(philo->data->start), philo->id, s);
 	pthread_mutex_unlock(&philo->data->mutex_message);
 }
-
 
 void	ft_message_death(t_phil *philo, char *s, int *stop)
 {

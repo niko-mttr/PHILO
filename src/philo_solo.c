@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 16:37:21 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 16:49:28 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:53:27 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*process_philo_solo(void *data)
 {
-	t_phil *philo;
+	t_phil	*philo;
 
 	philo = (t_phil *)data;
 	ft_message(philo, "has taken a fork");

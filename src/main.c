@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:30 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 16:48:12 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:53:17 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	left(t_phil *philo)
 	ft_message(philo, "is eating");
 	pthread_mutex_lock(&philo->checker);
 	philo->last_eat = get_time();
-		if (philo->lim > 0)
-			philo->lim--;
+	if (philo->lim > 0)
+		philo->lim--;
 	pthread_mutex_unlock(&philo->checker);
 	ft_sleep_check(philo, philo->time_to_eat);
 	pthread_mutex_unlock(&philo->data->mutex_fork[philo->right_fork]);
@@ -104,6 +104,6 @@ int	main(int ac, char **av)
 		exit(EXIT_FAILURE);
 	}
 	if (start_philo(av))
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	return (0);
 }
