@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 12:20:42 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 17:04:09 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:48:15 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_init_data(t_data *data, char **arg)
 	data->time_to_eat = ft_atoi(arg[3]);
 	data->time_to_sleep = ft_atoi(arg[4]);
 	data->stop = 0;
+	data->nb_full = -1;
 	if (arg[5])
 		data->nb_full = ft_atoi(arg[5]);
 	data->philo = (t_phil *)malloc(sizeof(t_phil) * data->nb_philo);
