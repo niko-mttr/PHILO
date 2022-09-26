@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 14:15:30 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 15:09:45 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:48:12 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	start_philo(char **arg)
 	ft_init_data(&data, arg);
 	i = 0;
 	data.start = get_time();
+	if (data.nb_philo == 1)
+		return (solo_philo(data));
 	while (i < data.nb_philo)
 	{
 		if (pthread_create(&data.pid[i], NULL, &process_philo, &data.philo[i]))

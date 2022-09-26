@@ -6,7 +6,7 @@
 /*   By: nmattera <nmattera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 09:59:40 by nmattera          #+#    #+#             */
-/*   Updated: 2022/09/26 13:06:55 by nmattera         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:48:12 by nmattera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,8 @@ void				ft_init_data(t_data *data, char **arg);
 /* routine */
 void				left(t_phil *philo);
 void				right(t_phil *philo);
+
+/* solo */
+int					solo_philo(t_data data);
 
 #endif
